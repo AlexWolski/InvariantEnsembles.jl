@@ -112,7 +112,7 @@ end
 
 #Reads in recurrence relationship and constructs OPs
 function InvariantEnsemble(str::String, V::Function, d, n::Integer)
-    file = Pkg.dir("InvariantEnsembles/CoefficientDatabase/" * str * "/" * string(n))
+    file = string(dirname(pathof(@__MODULE__)), "\\..\\CoefficientDatabase\\", str, "\\", string(n))
     μ0=readdlm(file * "norm.csv")[1]
     A=readdlm(file * "rc.csv",',')
     a=reshape((A[1,1:end-1]),size(A)[2]-1)
@@ -122,7 +122,7 @@ function InvariantEnsemble(str::String, V::Function, d, n::Integer)
 end
 
 function InvariantEnsembleUnscaled(str::String,V::Function, d, n::Integer)
-    file = Pkg.dir("InvariantEnsembles/CoefficientDatabaseUnscaled/" * str * "/")
+    file = string(dirname(pathof(@__MODULE__)), "\\..\\CoefficientDatabaseUnscaled\\", str, "\\")
     μ0=readdlm(file * "norm.csv")[1]
     A=readdlm(file * "rc.csv",',')
     a=reshape((A[1,1:end-1]), size(A)[2]-1)
@@ -238,7 +238,7 @@ samplespectra(p::InvariantEnsemble)=samplespectra(p.basis,p.domain)
 
 
 function spectradatabase(str, n::Integer, m::Colon)
-  file = Pkg.dir("InvariantEnsembles/SpectraDatabase/" * str * "/" * string(n) * ".csv");
+  file = string(dirname(pathof(@__MODULE__)), "\\..\\SpectraDatabase\\", str, "\\", string(n), ".csv")
 
   if(filesize(file) == 0)
     []
@@ -248,13 +248,13 @@ function spectradatabase(str, n::Integer, m::Colon)
 end
 
 function spectradatabase(str,n::Integer, m::Integer)
-    if  filesize(Pkg.dir("InvariantEnsembles/CoefficientDatabase")) == 0 ||
-        filesize(Pkg.dir("InvariantEnsembles/CoefficientDatabaseUnscaled")) == 0
+    if  filesize(string(dirname(pathof(@__MODULE__)), "\\..\\CoefficientDatabase")) == 0 ||
+        filesize(string(dirname(pathof(@__MODULE__)), "\\..\\CoefficientDatabaseUnscaled")) == 0
         error("No coefficient database found.  InvariantEnsembles package corrupted.")
     end
 
 
-    dir = Pkg.dir("InvariantEnsembles/SpectraDatabase")
+    dir = string(dirname(pathof(@__MODULE__)), "\\..\\SpectraDatabase")
     if filesize(dir) == 0
         warn("Creating SpectraDatabase folder " * dir)
 
@@ -262,7 +262,7 @@ function spectradatabase(str,n::Integer, m::Integer)
     end
 
 
-    dir = Pkg.dir("InvariantEnsembles/SpectraDatabase/" * str)
+    dir = string(dirname(pathof(@__MODULE__)), "\\..\\SpectraDatabase\\", str)
 
     if filesize(dir) == 0
         warn("Creating folder " * dir)
