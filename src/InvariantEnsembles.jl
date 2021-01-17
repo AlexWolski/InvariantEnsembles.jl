@@ -1,5 +1,6 @@
 module InvariantEnsembles
     using ApproxFun
+    using DelimitedFiles
 
 
 export samplelegendrespectra,dotplot,spectradatabase,sampleensemblespectra,iekernel,samplespectra,sampleguespectra
