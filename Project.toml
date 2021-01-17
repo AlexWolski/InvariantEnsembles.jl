@@ -1,0 +1,5 @@
+name = "InvariantEnsembles"
+uuid = "9bac0857-bf6f-535c-a8cd-01e98c492079"
+
+[deps]
+ApproxFun = "28f2ccd6-bb30-5033-b560-165f7b14dc2f"
